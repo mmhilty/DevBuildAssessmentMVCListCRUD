@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Registration";
+}
+
+<h2>Registration</h2>
+
+<form action="AddRegistration" method="post">
+    <input type="hidden" name="GuestID" />
+    <p>First Name:</p>
+    <input type="text" name="FirstName" required />
+    <p>Last Name:</p>
+    <input type="text" name="LastName" required />
+    <p>Email:</p>
+    <input type="email" name="Email" required /><br /><br />
+    <p>Will you be attending?</p>
+    <input type="radio" name="Attending" value="yes" required /> Yes
+    <input type="radio" name="Attending" value="no" /> No <br /><br />
+    <p>Date Attending:</p>
+    <input type="radio" name="Date" value="12/16/18" /> December 16th at 7pm <br />
+    <input type="radio" name="Date" value="12/17/18" /> December 17th at 5pm <br />
+    <input type="radio" name="Date" value="none" checked class="hidden" /> <br />
+    <p>Guest Name (if bringing):</p>
+    <input type="text" name="GuestName" value="" />
+
+    <input type="submit" value="Submit" />
+</form>

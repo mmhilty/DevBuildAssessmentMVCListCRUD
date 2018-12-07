@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "DishSignup";
+}
+
+<h2>Dish Sign Up</h2>
+
+<form action="AddDish" method="post">
+    <input type="hidden" name="DishID" />
+    <p>First Name:</p>
+    <input type="text" name="FirstName" required />
+    <p>Last Name:</p>
+    <input type="text" name="LastName" required />
+    <p>Phone Number:</p>
+    <input type="number" pattern="^\d{10}$" name="PhoneNumber" required />
+    <p>Name of Dish:</p>
+    <input type="text" name="DishName" value="" />
+    <p>Short Dish Description:</p>
+    <input type="text" name="DishDescription" required /><br />
+    <input type="checkbox" name="DishGF" value="yes" /> Gluten Free
+    <input type="checkbox" name="DishVegan" value="yes" /> Vegetarian
+    <input type="checkbox" name="DishVegetarian" value="yes" /> Vegan
+    <br /><br />
+    <input type="submit" value="Submit" />
+</form>

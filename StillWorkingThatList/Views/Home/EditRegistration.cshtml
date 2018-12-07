@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "EditRegistration";
+}
+
+
+@model StillWorkingThatList.Models.Guest
+
+<h2>Edit Registration</h2>
+
+<form action="SaveRegistrationEdits" method="post">
+    <input type="hidden" name="GuestID" value="@Model.GuestID" />
+    <p>First Name:</p>
+    <input type="text" name="FirstName" value="@Model.FirstName" />
+    <p>Last Name:</p>
+    <input type="text" name="LastName" value="@Model.LastName" />
+    <p>Email:</p>
+    <input type="email" name="Email" value="@Model.Email" /><br /><br />
+    <p>Will you be attending?</p>
+    @if (Model.Attending == "yes")
+    {
+        <div>
+            <input type="radio" name="Attending" value="yes" checked /> Yes
+            <input type="radio" name="Attending" value="no" /> No <br /><br />
+        </div>
+    }
+    else
+    {
+        <div>
+            <input type="radio" name="Attending" value="yes" /> Yes
+            <input type="radio" name="Attending" value="no" checked /> No <br /><br />
+        </div>
+    }
+
+    <p>Date Attending:</p>
+    @if (Model.Date == "12/16/18" )
+    {<div>
+    <input type="radio" name="Date" value="12/16/18" checked/>December 16th at 7pm <br />
+    <input type = "radio" name = "Date" value = "12/17/18" /> December 17th at 5pm <br />
+    <input type = "radio" name = "Date" value = "none" class="hidden" /> <br />
+    </div>
+    }else if (Model.Date == "12/17/18" )
+    {<div>
+    <input type="radio" name="Date" value="12/16/18" />December 16th at 7pm <br />
+    <input type = "radio" name = "Date" value = "12/17/18" checked /> December 17th at 5pm <br />
+    <input type = "radio" name = "Date" value = "none" class="hidden" /> <br />
+    </div>
+    }else
+    {<div>
+    <input type="radio" name="Date" value="12/16/18" />December 16th at 7pm <br />
+    <input type = "radio" name = "Date" value = "12/17/18"  /> December 17th at 5pm <br />
+    <input type = "radio" name = "Date" value = "none" checked class="hidden" /> <br />
+    </div>
+    }       
+    <p>Guest Name (if bringing):</p>
+    <input type="text" name="GuestName" value="@Model.GuestName" />
+
+    <input type="submit" value="Submit" />
+</form>

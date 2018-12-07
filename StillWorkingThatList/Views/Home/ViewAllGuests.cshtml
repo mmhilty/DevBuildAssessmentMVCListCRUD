@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "ViewAllGuests";
+}
+
+<h2>View RSVPs</h2>
+
+<table class="table">
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Attending</th>
+        <th>Date</th>
+        <th>Guest Name</th>
+    </tr>
+
+    @foreach(var guest in ViewBag.GuestList)
+    {
+    <tr>
+        <td>@guest.FirstName</td>
+        <td>@guest.LastName</td>
+        <td>@guest.Email</td>
+        <td>@guest.Attending</td>
+        <td>@guest.Date</td>
+        <td>@guest.GuestName</td>
+        <td class="btn-link"><a href="~/Home/EditRegistration?GuestID=@guest.GuestID">Edit</a></td>
+        <td class="btn-link"><a href="~/Home/DeleteGuest?GuestID=@guest.GuestID">Delete</a></td>
+    </tr>
+    }
+
+</table>
