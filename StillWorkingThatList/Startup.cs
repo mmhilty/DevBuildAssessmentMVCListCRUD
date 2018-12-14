@@ -28,6 +28,7 @@ namespace StillWorkingThatList
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new Microsoft.Owin.PathString("/Identity/Login"),
+                CookieName = "identityCookie"
             });
 
         }

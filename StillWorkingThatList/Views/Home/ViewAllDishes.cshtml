@@ -1,6 +1,10 @@
 ﻿
 @{
     ViewBag.Title = "ViewAllDishes";
+
+
+
+
 }
 
 <h2>ViewAllDishes</h2>
@@ -18,12 +22,17 @@
 
     @foreach (var dish in ViewBag.DishList)
     {
+        if (dish.Email == User.Identity.Name)
+        {
         <tr>
             <td>@dish.DishName</td>
             <td>@dish.DishDescription</td>
-            <td>@if (dish.DishGF == "yes") { <div class="text-success">GF</div> }
-            @if (dish.DishVegan == "yes") { <div class="text-success">Vegan</div> }
-            @if (dish.DishVegetarian == "yes") { <div class="text-success">Veg</div> } <td/>
+            <td>@if (dish.DishGF == "yes")
+            { <div class="text-success">GF</div> }
+            @if (dish.DishVegan == "yes")
+            { <div class="text-success">Vegan</div> }
+            @if (dish.DishVegetarian == "yes")
+            { <div class="text-success">Veg</div> } <td/>
             <td>@dish.FirstName</td>
             <td>@dish.LastName</td>
             <td>@dish.PhoneNumber</td>
@@ -31,6 +40,7 @@
             <td class="btn-link"><a href="~/Home/EditDish?DishID=@dish.DishID">Edit</a></td>
             <td class="btn-link"><a href="~/Home/DeleteDish?DishID=@dish.DishID">Delete</a></td>
         </tr>
+        }
     }
 
 </table>
