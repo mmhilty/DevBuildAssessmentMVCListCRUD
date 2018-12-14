@@ -86,7 +86,7 @@ namespace StillWorkingThatList.Controllers
 
             oldGuest.FirstName = updatedGuest.FirstName;
             oldGuest.LastName = updatedGuest.LastName;
-            oldGuest.Email = updatedGuest.Email;
+            //oldGuest.Email = updatedGuest.Email;
             oldGuest.Attending = updatedGuest.Attending;
             oldGuest.Date = updatedGuest.Date;
             oldGuest.GuestName = updatedGuest.GuestName;

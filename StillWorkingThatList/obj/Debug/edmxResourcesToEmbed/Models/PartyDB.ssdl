@@ -13,15 +13,16 @@
     <Property Name="DishGF" Type="nvarchar" MaxLength="3" />
     <Property Name="DishVegan" Type="nvarchar" MaxLength="3" />
     <Property Name="DishVegetarian" Type="nvarchar" MaxLength="3" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Guest">
     <Key>
-      <PropertyRef Name="GuestID" />
+      <PropertyRef Name="Email" />
     </Key>
-    <Property Name="GuestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GuestID" Type="int" StoreGeneratedPattern="Identity" />
     <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
     <Property Name="LastName" Type="nvarchar" MaxLength="50" />
-    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Attending" Type="nvarchar" MaxLength="3" />
     <Property Name="Date" Type="nvarchar" MaxLength="50" />
     <Property Name="GuestName" Type="nvarchar" MaxLength="50" />
@@ -36,9 +37,25 @@
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
+  <Association Name="FK_Dish_Guest">
+    <End Role="Guest" Type="Self.Guest" Multiplicity="0..1" />
+    <End Role="Dish" Type="Self.Dish" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Guest">
+        <PropertyRef Name="Email" />
+      </Principal>
+      <Dependent Role="Dish">
+        <PropertyRef Name="Email" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="PartyDBModelStoreContainer">
     <EntitySet Name="Dish" EntityType="Self.Dish" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Guest" EntityType="Self.Guest" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Dish_Guest" Association="Self.FK_Dish_Guest">
+      <End Role="Guest" EntitySet="Guest" />
+      <End Role="Dish" EntitySet="Dish" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>

@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Dishes">
       <EntityTypeMapping TypeName="PartyDBModel.Dish">
         <MappingFragment StoreEntitySet="Dish">
+          <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="DishID" ColumnName="DishID" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />

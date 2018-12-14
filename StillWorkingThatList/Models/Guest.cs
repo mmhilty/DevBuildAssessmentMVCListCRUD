@@ -14,12 +14,21 @@ namespace StillWorkingThatList.Models
     
     public partial class Guest
     {
-        public int GuestID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Guest()
+        {
+            this.Dishes = new HashSet<Dish>();
+        }
+    
+        public Nullable<int> GuestID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Attending { get; set; }
         public string Date { get; set; }
         public string GuestName { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Dish> Dishes { get; set; }
     }
 }

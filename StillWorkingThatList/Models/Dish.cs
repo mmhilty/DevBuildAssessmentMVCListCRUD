@@ -23,5 +23,8 @@ namespace StillWorkingThatList.Models
         public string DishGF { get; set; }
         public string DishVegan { get; set; }
         public string DishVegetarian { get; set; }
+        public string Email { get; set; }
+    
+        public virtual Guest Guest { get; set; }
     }
 }

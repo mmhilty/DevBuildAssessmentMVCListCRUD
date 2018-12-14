@@ -13,18 +13,21 @@
     <Property Name="DishGF" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
     <Property Name="DishVegan" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
     <Property Name="DishVegetarian" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="true" />
+    <NavigationProperty Name="Guest" Relationship="PartyDBModel.FK_Dish_Guest" FromRole="Dish" ToRole="Guest" />
   </EntityType>
   <EntityType Name="Guest">
     <Key>
-      <PropertyRef Name="GuestID" />
+      <PropertyRef Name="Email" />
     </Key>
-    <Property Name="GuestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GuestID" Type="Int32" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Attending" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
     <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="GuestName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Dishes" Relationship="PartyDBModel.FK_Dish_Guest" FromRole="Guest" ToRole="Dish" />
   </EntityType>
   <EntityType Name="sysdiagram">
     <Key>
@@ -40,5 +43,21 @@
     <EntitySet Name="Dishes" EntityType="Self.Dish" />
     <EntitySet Name="Guests" EntityType="Self.Guest" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK_Dish_Guest" Association="PartyDBModel.FK_Dish_Guest">
+      <End Role="Guest" EntitySet="Guests" />
+      <End Role="Dish" EntitySet="Dishes" />
+    </AssociationSet>
   </EntityContainer>
+  <Association Name="FK_Dish_Guest">
+    <End Type="PartyDBModel.Guest" Role="Guest" Multiplicity="0..1" />
+    <End Type="PartyDBModel.Dish" Role="Dish" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Guest">
+        <PropertyRef Name="Email" />
+      </Principal>
+      <Dependent Role="Dish">
+        <PropertyRef Name="Email" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

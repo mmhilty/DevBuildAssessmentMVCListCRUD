@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PartyDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PartyDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Dish">
           <Key>
             <PropertyRef Name="DishID" />
@@ -18,15 +18,16 @@
           <Property Name="DishGF" Type="nvarchar" MaxLength="3" />
           <Property Name="DishVegan" Type="nvarchar" MaxLength="3" />
           <Property Name="DishVegetarian" Type="nvarchar" MaxLength="3" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Guest">
           <Key>
-            <PropertyRef Name="GuestID" />
+            <PropertyRef Name="Email" />
           </Key>
-          <Property Name="GuestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GuestID" Type="int" StoreGeneratedPattern="Identity" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
           <Property Name="LastName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Attending" Type="nvarchar" MaxLength="3" />
           <Property Name="Date" Type="nvarchar" MaxLength="50" />
           <Property Name="GuestName" Type="nvarchar" MaxLength="50" />
@@ -41,13 +42,28 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <Association Name="FK_Dish_Guest">
+          <End Role="Guest" Type="Self.Guest" Multiplicity="0..1" />
+          <End Role="Dish" Type="Self.Dish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Guest">
+              <PropertyRef Name="Email" />
+            </Principal>
+            <Dependent Role="Dish">
+              <PropertyRef Name="Email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="PartyDBModelStoreContainer">
           <EntitySet Name="Dish" EntityType="Self.Dish" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Guest" EntityType="Self.Guest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Dish_Guest" Association="Self.FK_Dish_Guest">
+            <End Role="Guest" EntitySet="Guest" />
+            <End Role="Dish" EntitySet="Dish" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PartyDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -64,18 +80,21 @@
           <Property Name="DishGF" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
           <Property Name="DishVegan" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
           <Property Name="DishVegetarian" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="true" />
+          <NavigationProperty Name="Guest" Relationship="PartyDBModel.FK_Dish_Guest" FromRole="Dish" ToRole="Guest" />
         </EntityType>
         <EntityType Name="Guest">
           <Key>
-            <PropertyRef Name="GuestID" />
+            <PropertyRef Name="Email" />
           </Key>
-          <Property Name="GuestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GuestID" Type="Int32" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Attending" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
           <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="GuestName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Dishes" Relationship="PartyDBModel.FK_Dish_Guest" FromRole="Guest" ToRole="Dish" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -91,7 +110,23 @@
           <EntitySet Name="Dishes" EntityType="Self.Dish" />
           <EntitySet Name="Guests" EntityType="Self.Guest" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_Dish_Guest" Association="PartyDBModel.FK_Dish_Guest">
+            <End Role="Guest" EntitySet="Guests" />
+            <End Role="Dish" EntitySet="Dishes" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Dish_Guest">
+          <End Type="PartyDBModel.Guest" Role="Guest" Multiplicity="0..1" />
+          <End Type="PartyDBModel.Dish" Role="Dish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Guest">
+              <PropertyRef Name="Email" />
+            </Principal>
+            <Dependent Role="Dish">
+              <PropertyRef Name="Email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -101,6 +136,7 @@
           <EntitySetMapping Name="Dishes">
             <EntityTypeMapping TypeName="PartyDBModel.Dish">
               <MappingFragment StoreEntitySet="Dish">
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="DishID" ColumnName="DishID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
