@@ -13,9 +13,10 @@
         <th>Attending</th>
         <th>Date</th>
         <th>Guest Name</th>
+        <th>Bae</th>
     </tr>
 
-    @foreach(var guest in ViewBag.GuestList)
+    @foreach (var guest in ViewBag.GuestList)
     {
     <tr>
         <td>@guest.FirstName</td>
@@ -24,6 +25,7 @@
         <td>@guest.Attending</td>
         <td>@guest.Date</td>
         <td>@guest.GuestName</td>
+        <td></td>
         <td class="btn-link"><a href="~/Home/EditRegistration?GuestID=@guest.GuestID">Edit</a></td>
         <td class="btn-link"><a href="~/Home/DeleteGuest?GuestID=@guest.GuestID">Delete</a></td>
     </tr>

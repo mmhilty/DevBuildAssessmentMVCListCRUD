@@ -20,6 +20,7 @@
     <EntitySetMapping Name="Guests">
       <EntityTypeMapping TypeName="PartyDBModel.Guest">
         <MappingFragment StoreEntitySet="Guest">
+          <ScalarProperty Name="CharacterID" ColumnName="CharacterID" />
           <ScalarProperty Name="GuestID" ColumnName="GuestID" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -38,6 +39,17 @@
           <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
           <ScalarProperty Name="version" ColumnName="version" />
           <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GoTCharacters">
+      <EntityTypeMapping TypeName="PartyDBModel.GoTCharacter">
+        <MappingFragment StoreEntitySet="GoTCharacters">
+          <ScalarProperty Name="Book" ColumnName="Book" />
+          <ScalarProperty Name="Allegiance" ColumnName="Allegiance" />
+          <ScalarProperty Name="House" ColumnName="House" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CharacterID" ColumnName="CharacterID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

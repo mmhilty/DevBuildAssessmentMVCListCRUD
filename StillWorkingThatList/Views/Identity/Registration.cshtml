@@ -5,7 +5,7 @@
 
 <h2>Registration</h2>
 
-<form action="Registration" method="post">
+<form action="Registration" method="post" class="form-group">
     <input type="hidden" name="GuestID" />
     <p>First Name:</p>
     <input type="text" name="FirstName" required />
@@ -24,7 +24,16 @@
     <input type="text" name="GuestName" value="" /><br />
     Password: <br />
     <input type="password" name="Password" required/><br /><br />
-
+    Who is bae?<br />
+               <select name="CharacterName">
+                   <option  value="arya%20stark">Arya Stark</option>
+                   <option  value="brienne%20of%20tarth">Brienne of Tarth</option>
+                   <option  value="cersei%20lannister">Cersei Lannister</option>
+                   <option  value="daenerys%20targaryen">Daenerys Targaryen</option>
+                   <option value="margaery%20tyrell">Margaery Tyrell</option>
+                   <option value="sansa%20stark">Sansa Stark</option>
+                   <option value="ygritte">Ygritte</option>
+               </select><br /><br />
 
     <input type="submit" value="Submit" />
 </form>

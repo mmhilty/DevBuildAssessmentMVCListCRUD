@@ -14,6 +14,7 @@ namespace StillWorkingThatList.Models
         public string Date { get; set; }
         public string GuestName { get; set; }
         public string Password { get; set; }
+        public string CharacterName { get; set; }
 
     }
 }

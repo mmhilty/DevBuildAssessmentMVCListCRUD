@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
+using Newtonsoft.Json.Linq;
 
 namespace StillWorkingThatList.Controllers
 {
@@ -44,6 +45,15 @@ namespace StillWorkingThatList.Controllers
                 {
                     PartyDBEntities ORM = new PartyDBEntities();
 
+                    var newCharacter = new GoTCharacter();
+                    var characterData = new APIController().GetCharacter(newRegistration.CharacterName);
+                    newCharacter.Name = characterData.name;
+                    newCharacter.House = characterData.allegiances[0];
+                    newCharacter.Allegiance = characterData.allegiances[0];
+                    newCharacter.Book = characterData.books[0].ToString();
+
+                    ORM.GoTCharacters.Add(newCharacter);
+
                     var newGuest = new Guest();
 
                     newGuest.FirstName = newRegistration.FirstName;
@@ -52,9 +62,12 @@ namespace StillWorkingThatList.Controllers
                     newGuest.Attending = newRegistration.Attending;
                     newGuest.Date = newRegistration.Date;
                     newGuest.GuestName = newRegistration.GuestName;
+                    newGuest.GoTCharacter = newCharacter;
 
                     ORM.Guests.Add(newGuest);
                     ORM.SaveChanges();
+
+                    
 
                     return RedirectToAction("ViewAllGuests", "Home");
                 }
@@ -66,6 +79,7 @@ namespace StillWorkingThatList.Controllers
 
         }
         
+
         public ActionResult Login()
         {
             return View();

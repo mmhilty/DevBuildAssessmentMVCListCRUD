@@ -99,3 +99,9 @@ C:\Users\mhilty\source\repos\StillWorkingThatList\StillWorkingThatList\bin\Micro
 C:\Users\mhilty\source\repos\StillWorkingThatList\StillWorkingThatList\bin\Microsoft.Owin.Security.xml
 C:\Users\mhilty\source\repos\StillWorkingThatList\StillWorkingThatList\bin\Microsoft.Owin.Security.Cookies.xml
 C:\Users\mhilty\source\repos\StillWorkingThatList\StillWorkingThatList\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\mhilty\source\repos\StillWorkingThatList\StillWorkingThatList\bin\System.Net.Http.Formatting.dll
+C:\Users\mhilty\source\repos\StillWorkingThatList\StillWorkingThatList\bin\System.Web.Http.dll
+C:\Users\mhilty\source\repos\StillWorkingThatList\StillWorkingThatList\bin\System.Web.Http.WebHost.dll
+C:\Users\mhilty\source\repos\StillWorkingThatList\StillWorkingThatList\bin\System.Net.Http.Formatting.xml
+C:\Users\mhilty\source\repos\StillWorkingThatList\StillWorkingThatList\bin\System.Web.Http.xml
+C:\Users\mhilty\source\repos\StillWorkingThatList\StillWorkingThatList\bin\System.Web.Http.WebHost.xml

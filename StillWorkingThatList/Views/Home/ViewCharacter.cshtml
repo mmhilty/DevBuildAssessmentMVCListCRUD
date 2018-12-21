@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "ViewCharacter";
+}
+
+<h2>ViewCharacter</h2>
+
+@if (ViewBag.CharacterChosen != null)
+{
+    <table>
+        <tr>
+            <td>@ViewBag.CharacterChosen.url</td>
+            <td>@ViewBag.CharacterChosen.name</td>
+            <td>@ViewBag.CharacterChosen.gender</td>
+            <td>@ViewBag.CharacterChosen.culture</td>
+            <td>@ViewBag.CharacterChosen.born</td>
+            <td>@ViewBag.CharacterChosen.died</td>
+            <td>@ViewBag.CharacterChosen.titles[0]</td>
+            <td>@ViewBag.CharacterChosen.aliases[0]</td>
+            <td>@ViewBag.CharacterChosen.father</td>
+            <td>@ViewBag.CharacterChosen.mother</td>
+            <td>@ViewBag.CharacterChosen.spouse</td>
+            <td>@ViewBag.CharacterChosen.allegiances[0]</td>
+            <td>@ViewBag.CharacterChosen.books[0]</td>
+            <td>@ViewBag.CharacterChosen.povBooks[0]</td>
+            <td>@ViewBag.CharacterChosen.tvSeries[0]</td>
+            <td>@ViewBag.CharacterChosen.playedBy[0]</td>
+            
+
+            
+        </tr>
+    </table>
+}

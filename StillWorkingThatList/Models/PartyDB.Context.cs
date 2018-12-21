@@ -28,5 +28,6 @@ namespace StillWorkingThatList.Models
         public virtual DbSet<Dish> Dishes { get; set; }
         public virtual DbSet<Guest> Guests { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<GoTCharacter> GoTCharacters { get; set; }
     }
 }

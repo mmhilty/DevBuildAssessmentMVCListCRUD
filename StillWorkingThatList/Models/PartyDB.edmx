@@ -20,6 +20,16 @@
           <Property Name="DishVegetarian" Type="nvarchar" MaxLength="3" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="GoTCharacters">
+          <Key>
+            <PropertyRef Name="CharacterID" />
+          </Key>
+          <Property Name="CharacterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="House" Type="nvarchar" MaxLength="50" />
+          <Property Name="Allegiance" Type="nvarchar" MaxLength="50" />
+          <Property Name="Book" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Guest">
           <Key>
             <PropertyRef Name="Email" />
@@ -31,6 +41,7 @@
           <Property Name="Attending" Type="nvarchar" MaxLength="3" />
           <Property Name="Date" Type="nvarchar" MaxLength="50" />
           <Property Name="GuestName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CharacterID" Type="int" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -54,13 +65,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Guest_GoTCharacters">
+          <End Role="GoTCharacters" Type="Self.GoTCharacters" Multiplicity="0..1" />
+          <End Role="Guest" Type="Self.Guest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoTCharacters">
+              <PropertyRef Name="CharacterID" />
+            </Principal>
+            <Dependent Role="Guest">
+              <PropertyRef Name="CharacterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="PartyDBModelStoreContainer">
           <EntitySet Name="Dish" EntityType="Self.Dish" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GoTCharacters" EntityType="Self.GoTCharacters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Guest" EntityType="Self.Guest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Dish_Guest" Association="Self.FK_Dish_Guest">
             <End Role="Guest" EntitySet="Guest" />
             <End Role="Dish" EntitySet="Dish" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Guest_GoTCharacters" Association="Self.FK_Guest_GoTCharacters">
+            <End Role="GoTCharacters" EntitySet="GoTCharacters" />
+            <End Role="Guest" EntitySet="Guest" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -95,6 +123,8 @@
           <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="GuestName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Dishes" Relationship="PartyDBModel.FK_Dish_Guest" FromRole="Guest" ToRole="Dish" />
+          <Property Name="CharacterID" Type="Int32" />
+          <NavigationProperty Name="GoTCharacter" Relationship="PartyDBModel.FK_Guest_GoTCharacters" FromRole="Guest" ToRole="GoTCharacter" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -114,6 +144,11 @@
             <End Role="Guest" EntitySet="Guests" />
             <End Role="Dish" EntitySet="Dishes" />
           </AssociationSet>
+          <EntitySet Name="GoTCharacters" EntityType="PartyDBModel.GoTCharacter" />
+          <AssociationSet Name="FK_Guest_GoTCharacters" Association="PartyDBModel.FK_Guest_GoTCharacters">
+            <End Role="GoTCharacter" EntitySet="GoTCharacters" />
+            <End Role="Guest" EntitySet="Guests" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_Dish_Guest">
           <End Type="PartyDBModel.Guest" Role="Guest" Multiplicity="0..1" />
@@ -124,6 +159,29 @@
             </Principal>
             <Dependent Role="Dish">
               <PropertyRef Name="Email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="GoTCharacter">
+          <Key>
+            <PropertyRef Name="CharacterID" />
+          </Key>
+          <Property Name="CharacterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="House" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Allegiance" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Book" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Guests" Relationship="PartyDBModel.FK_Guest_GoTCharacters" FromRole="GoTCharacter" ToRole="Guest" />
+        </EntityType>
+        <Association Name="FK_Guest_GoTCharacters">
+          <End Type="PartyDBModel.GoTCharacter" Role="GoTCharacter" Multiplicity="0..1" />
+          <End Type="PartyDBModel.Guest" Role="Guest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoTCharacter">
+              <PropertyRef Name="CharacterID" />
+            </Principal>
+            <Dependent Role="Guest">
+              <PropertyRef Name="CharacterID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -152,6 +210,7 @@
           <EntitySetMapping Name="Guests">
             <EntityTypeMapping TypeName="PartyDBModel.Guest">
               <MappingFragment StoreEntitySet="Guest">
+                <ScalarProperty Name="CharacterID" ColumnName="CharacterID" />
                 <ScalarProperty Name="GuestID" ColumnName="GuestID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -170,6 +229,17 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GoTCharacters">
+            <EntityTypeMapping TypeName="PartyDBModel.GoTCharacter">
+              <MappingFragment StoreEntitySet="GoTCharacters">
+                <ScalarProperty Name="Book" ColumnName="Book" />
+                <ScalarProperty Name="Allegiance" ColumnName="Allegiance" />
+                <ScalarProperty Name="House" ColumnName="House" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CharacterID" ColumnName="CharacterID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

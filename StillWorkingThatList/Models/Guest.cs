@@ -27,8 +27,10 @@ namespace StillWorkingThatList.Models
         public string Attending { get; set; }
         public string Date { get; set; }
         public string GuestName { get; set; }
+        public Nullable<int> CharacterID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Dish> Dishes { get; set; }
+        public virtual GoTCharacter GoTCharacter { get; set; }
     }
 }

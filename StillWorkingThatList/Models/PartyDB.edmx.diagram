@@ -4,11 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cf56dc3ddb374edfa936bf81b3a854cd" Name="Diagram1">
+      <Diagram DiagramId="cf56dc3ddb374edfa936bf81b3a854cd" Name="Diagram1" ZoomLevel="92">
         <EntityTypeShape EntityType="PartyDBModel.Dish" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PartyDBModel.Guest" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PartyDBModel.sysdiagram" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="PartyDBModel.FK_Dish_Guest" />
+        <EntityTypeShape EntityType="PartyDBModel.GoTCharacter" Width="1.5" PointX="3" PointY="4.125" />
+        <AssociationConnector Association="PartyDBModel.FK_Guest_GoTCharacters" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

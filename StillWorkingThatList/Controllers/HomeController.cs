@@ -139,7 +139,13 @@ namespace StillWorkingThatList.Controllers
             return RedirectToAction("ViewAllDishes");
         }
 
+        public ActionResult ViewCharacter(string CharacterName)
+        {
 
+            ViewBag.CharacterChosen = new APIController().GetCharacter(CharacterName);
+
+            return View();
+        }
 
 
     }

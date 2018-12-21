@@ -28,6 +28,8 @@
     <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="GuestName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Dishes" Relationship="PartyDBModel.FK_Dish_Guest" FromRole="Guest" ToRole="Dish" />
+    <Property Name="CharacterID" Type="Int32" />
+    <NavigationProperty Name="GoTCharacter" Relationship="PartyDBModel.FK_Guest_GoTCharacters" FromRole="Guest" ToRole="GoTCharacter" />
   </EntityType>
   <EntityType Name="sysdiagram">
     <Key>
@@ -47,6 +49,11 @@
       <End Role="Guest" EntitySet="Guests" />
       <End Role="Dish" EntitySet="Dishes" />
     </AssociationSet>
+    <EntitySet Name="GoTCharacters" EntityType="PartyDBModel.GoTCharacter" />
+    <AssociationSet Name="FK_Guest_GoTCharacters" Association="PartyDBModel.FK_Guest_GoTCharacters">
+      <End Role="GoTCharacter" EntitySet="GoTCharacters" />
+      <End Role="Guest" EntitySet="Guests" />
+    </AssociationSet>
   </EntityContainer>
   <Association Name="FK_Dish_Guest">
     <End Type="PartyDBModel.Guest" Role="Guest" Multiplicity="0..1" />
@@ -57,6 +64,29 @@
       </Principal>
       <Dependent Role="Dish">
         <PropertyRef Name="Email" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="GoTCharacter">
+    <Key>
+      <PropertyRef Name="CharacterID" />
+    </Key>
+    <Property Name="CharacterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="House" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Allegiance" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Book" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Guests" Relationship="PartyDBModel.FK_Guest_GoTCharacters" FromRole="GoTCharacter" ToRole="Guest" />
+  </EntityType>
+  <Association Name="FK_Guest_GoTCharacters">
+    <End Type="PartyDBModel.GoTCharacter" Role="GoTCharacter" Multiplicity="0..1" />
+    <End Type="PartyDBModel.Guest" Role="Guest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GoTCharacter">
+        <PropertyRef Name="CharacterID" />
+      </Principal>
+      <Dependent Role="Guest">
+        <PropertyRef Name="CharacterID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
