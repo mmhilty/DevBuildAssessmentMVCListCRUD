@@ -50,7 +50,18 @@ namespace StillWorkingThatList.Controllers
                     newCharacter.Name = characterData.name;
                     newCharacter.House = characterData.allegiances[0];
                     newCharacter.Allegiance = characterData.allegiances[0];
-                    newCharacter.Book = characterData.books[0].ToString();
+                    if (characterData.books.Count() > 0)
+                    {
+                        newCharacter.Book = characterData.books[0].ToString();
+                    }
+                    else if (characterData.povBooks.Count() > 0)
+                    {
+                        newCharacter.Book = characterData.povBooks[0].ToString();
+                    }
+                    else
+                    {
+                        newCharacter.Book = "none";
+                    }
 
                     ORM.GoTCharacters.Add(newCharacter);
 

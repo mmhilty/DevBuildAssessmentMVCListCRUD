@@ -25,7 +25,13 @@
         <td>@guest.Attending</td>
         <td>@guest.Date</td>
         <td>@guest.GuestName</td>
-        <td></td>
+        @if (@guest.CharacterID != null)
+        {
+        <td><a href="~/Home/ViewCharacter?CharacterID=@guest.CharacterID">Info</a></td>}
+        else {
+            <td></td>
+        }
+
         <td class="btn-link"><a href="~/Home/EditRegistration?GuestID=@guest.GuestID">Edit</a></td>
         <td class="btn-link"><a href="~/Home/DeleteGuest?GuestID=@guest.GuestID">Delete</a></td>
     </tr>

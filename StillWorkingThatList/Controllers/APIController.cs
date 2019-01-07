@@ -31,10 +31,24 @@ namespace StillWorkingThatList.Controllers
                 using (StreamReader data = new StreamReader(response.GetResponseStream()))
                 {
                     string JsonData = data.ReadToEnd();
+                    
+
+                    //return character.ToObject<Character>();
+
                     JsonData = JsonData.TrimStart(new char[] { '[' }).TrimEnd(new char[] { ']' });
 
+                    JObject characterObject = JObject.Parse(JsonData);
+
                     var convert = JsonConvert.DeserializeObject<Character>(JsonData);
+
                     return convert;
+
+                    
+
+                    
+
+
+
                 }
 
 

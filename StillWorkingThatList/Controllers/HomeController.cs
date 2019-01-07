@@ -139,10 +139,14 @@ namespace StillWorkingThatList.Controllers
             return RedirectToAction("ViewAllDishes");
         }
 
-        public ActionResult ViewCharacter(string CharacterName)
+        public ActionResult ViewCharacter(int CharacterID)
         {
+            PartyDBEntities ORM = new PartyDBEntities();
 
-            ViewBag.CharacterChosen = new APIController().GetCharacter(CharacterName);
+
+            ViewBag.CharacterChosen = ORM.GoTCharacters.Find(CharacterID);
+
+            //ViewBag.CharacterChosen = new APIController().GetCharacter(CharacterName);
 
             return View();
         }
